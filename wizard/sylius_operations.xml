@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id ="sylius_operations_view_form" model="ir.ui.view">
+        <field name="name">sylius.operation.view</field>
+        <field name="model">sylius.operation</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <button name="import_customer_sylius" type="object" string="Import Customers"  class="btn btn-primary"/>
+                            <button name="import_order_sylius" string="Import Orders" type="object" class="oe_highlight"/>
+                        </group>
+                        <group>
+                            <button name="add_import_products_data" string="Import Products" type="object" class="oe_highlight"/>
+                            <button name="add_product_variants" string="Import Variants" type="object" class="oe_highlight"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+
+            </form>
+        </field>
+    </record>
+    <record id="action_wizard_sylius_operations" model="ir.actions.act_window">
+        <field name="name">Sylius Operations</field>
+        <field name="res_model">sylius.operation</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="sylius_operations_view_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="wizard_sylius_operations" parent="odoo_sylius_connector.sylius_operations" action="odoo_sylius_connector.action_wizard_sylius_operations"/>
+
+</odoo>

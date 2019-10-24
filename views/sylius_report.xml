@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+
+        <record id="view_sylius_export_tree" model="ir.ui.view">
+            <field name="name">view.sylius.export.tree</field>
+            <field name="model">sylius.report</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="product_id"/>
+                    <field name="export_date"/>
+                    <field name="status"/>
+                    <field name="status_code"/>
+                    <field name="reason" />
+                </tree>
+            </field>
+        </record>
+        <record id="action_sylius_report_view" model="ir.actions.act_window">
+            <field name="name">Sylius Export Report</field>
+             <field name="res_model">sylius.report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_sylius_export_tree"/>
+
+        </record>
+        <menuitem id="menu_sylius_report" name="Sylius Export Report"
+                  action="action_sylius_report_view"
+         parent="sale.menu_sale_report" sequence="10" />
+    </data>
+</odoo>

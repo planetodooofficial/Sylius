@@ -1,0 +1,85 @@
+<odoo>
+    <data>
+        <record id="view_sylius_taxons_form" model="ir.ui.view">
+            <field name="name">view.sylius.taxons.form</field>
+            <field name="model">sylius.taxons</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_sylius_taxons_tree" model="ir.ui.view">
+            <field name="name">view.sylius.taxons.tree</field>
+            <field name="model">sylius.taxons</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_sylius_taxon_view" model="ir.actions.act_window">
+            <field name="name">Sylius Taxons</field>
+            <field name="res_model">sylius.taxons</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_sylius_taxons_tree"/>
+
+        </record>
+        <menuitem id="menu_sylius_taxons" name="Sylius Taxons"
+                  action="action_sylius_taxon_view"
+                  parent="sale.product_menu_catalog" sequence="10" />
+        <record id="view_sylius_credential_form" model="ir.ui.view">
+            <field name="name">view.sylius.credential.form</field>
+            <field name="model">sylius.credential</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="client_key"/>
+                                <field name="client_secret"/>
+                                <field name="username"/>
+                                <field name="password"/>
+
+
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_sylius_credential_tree" model="ir.ui.view">
+            <field name="name">view.sylius.credential.tree</field>
+            <field name="model">sylius.credential</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="client_key"/>
+                    <field name="client_secret"/>
+                    <field name="username"/>
+                    <field name="password"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_sylius_credential_view" model="ir.actions.act_window">
+            <field name="name">Sylius Credential</field>
+            <field name="res_model">sylius.credential</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_sylius_credential_tree"/>
+
+        </record>
+        <menuitem id="menu_sylius_credential" name="Sylius Credentials"
+                  action="action_sylius_credential_view"
+                  parent="sale.product_menu_catalog" sequence="20" />
+    </data>
+</odoo>

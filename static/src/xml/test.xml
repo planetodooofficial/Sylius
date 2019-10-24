@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="header" inherit_id="website.layout" name="Header Add Partner">
+             <xpath expr="//header//ul[@id='top_menu']/li" position="before">
+                <!--<li class="nav-item divider" t-ignore="true" t-if="not user_id._is_public()">-->
+                    <!--<a href="/page/quick_book">-->
+                        <!--Sylius-->
+                    <!--</a>-->
+                <!--</li>-->
+                 <li class="nav-item">
+        <a role="menuitem" href="/page/sylius" class="nav-link ">
+            <span data-oe-model="website.menu" data-oe-id="6" data-oe-field="name" data-oe-type="char" data-oe-expression="submenu.name">Sylius</span>
+        </a>
+    </li>
+            </xpath>
+        </template>
+
+
+        <template id="sylius_page">
+            <t t-call="website.layout">
+                <div>
+
+                    <form action="/shop/confirm_order" method="post" id="quickbook_data">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                        <style type="text/css">
+                            .war-head {
+                            padding-left : 0px;
+                            padding-top : 5px;
+                            padding-bottom : 10px;
+                            font-family: "Times New Roman", Times, serif;
+                            font-style: oblique;
+                            font-size: 40px;
+                            color: #2E9AFE;
+                            }
+
+                            .war-head1 {
+                            padding-right : 20px;
+                            padding-top : 5px;
+                            }
+
+                            .div-btn {
+                            padding-left : 680px;
+                            padding-top : 35px;
+                            padding-bottom : 100px;
+                            color : blue;
+                            }
+
+                            .button {
+                            background: #3498db;
+                            background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+                            background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+                            background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+                            background-image: -o-linear-gradient(top, #3498db, #2980b9);
+                            background-image: linear-gradient(to bottom, #3498db, #2980b9);
+                            -webkit-border-radius: 14;
+                            -moz-border-radius: 14;
+                            border-radius: 14px;
+                            font-family: Georgia;
+                            color: #ffffff;
+                            font-size: 12px;
+                            padding: 5px 10px 5px 10px;
+                            text-decoration: none;
+                            }
+
+                            table td
+                            {
+                            padding: 8px 8px;
+                            }
+                            #loading {
+                            display:none;
+                            position:absolute;
+                            left:0;
+                            top:0;
+                            z-index:1000;
+                            width:100%;
+                            height:100%;
+                            min-height:100%;
+                            background:#000;
+                            opacity:0.8;
+                            text-align:center;
+                            color:#fff;
+                            }
+
+                            #loading_anim {
+                            position:absolute;
+                            left:50%;
+                            top:50%;
+                            z-index:1010;
+                            }
+
+                        </style>
+
+
+                        <script type="text/javascript" src="/odoo_sylius_connector/static/src/js/import_export.js"></script>
+                        <script type="text/javascript" src="/odoo_sylius_connector/static/src/js/datetimepicker.js"></script>
+
+                        <div>
+                            <div id="loading"><div id="loading_anim"></div></div>
+                            <div class="panel-group" id="accordion">
+                                <div class="panel panel-default" style="margin-left: 90px;margin-right: 90px;height: auto;margin-top: 20px;">
+                                    <h4 class="panel-title">
+                                        <h3 style="background:#aaaaaa;margin-left: 290px;margin-right: 5px;margin-top: 5px; width:547px;height:30px;" class="wpb_accordion_header ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-accordion-header-active ui-state-active ui-corner-top" plan="{&quot;family&quot;:false,&quot;planId&quot;:&quot;24055I&quot;}" role="tab" id="ui-accordion-1-header-0" aria-controls="ui-accordion-1-panel-0" aria-selected="true" tabindex="0">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" style="color: #FFFFFF;padding-left: 10px;" id="sus">Import
+                                            </a>
+                                        </h3>
+                                    </h4>
+                                    <div id="collapse1" class="panel-collapse collapse in">
+                                        <div class="panel-body">
+                                            <div class="wpb_content_element pricing-table" style="margin-left:320px;">
+
+                                                <table class="separator" id="sale_order_info">
+                                                    <!--<t t-if="quick" t-foreach="quick or []" t-as="cust">-->
+                                                        <!--<tr >-->
+                                                            <!--<td align="center"><strong>Last Import Update</strong></td>-->
+                                                            <!--<td>-->
+                                                                <!--<br></br>-->
+                                                                <!--<br></br>-->
+                                                            <!--</td>-->
+                                                            <!--<td align="center" style="padding-left: 10px">-->
+                                                                <!--<input type="text" name="last_dt_co" class="datepicker" t-att-value="cust.lastupdate_cust"  placeholder="dd/mm/yyyy" id="last_dt_co"/>-->
+                                                                <!--<a href="javascript:NewCal('last_dt_co','ddmmmyyyy',true,24)">-->
+                                                                    <!--<img src="/odoo_sylius_connector/static/src/img/cal.png" width="16" height="16" border="0" alt="Pick a date"/>-->
+                                                                <!--</a>-->
+                                                            <!--</td>-->
+                                                            <!--<td>-->
+                                                                <!--<br></br>-->
+                                                                <!--<br></br>-->
+                                                            <!--</td>-->
+                                                            <!--<td style="padding-left: 10px">-->
+                                                                <!--<button type="button"  class="button" onclick="submit_quickbook_data()">Import Customer</button>-->
+                                                            <!--</td>-->
+
+                                                        <!--</tr>-->
+                                                        <!--<tr >-->
+                                                            <!--<td align="center"><strong>Last Export Update</strong></td>-->
+                                                            <!--<td>-->
+                                                                <!--<br></br>-->
+                                                                <!--<br></br>-->
+                                                            <!--</td>-->
+                                                            <!--<td align="center" style="padding-left: 10px">-->
+                                                                <!--<input type="text" name="export_dt_co" class="datepicker" t-att-value="cust.exportdate_cust or ''"  placeholder="dd/mm/yyyy" id="export_dt_co"/>-->
+                                                                <!--<a href="javascript:NewCal('export_dt_co','ddmmmyyyy',true,24)">-->
+                                                                    <!--<img src="/odoo_sylius_connector/static/src/img/cal.png" width="16" height="16" border="0" alt="Pick a date"/>-->
+                                                                <!--</a>-->
+                                                            <!--</td>-->
+                                                            <!--<td>-->
+                                                                <!--<br></br>-->
+                                                                <!--<br></br>-->
+                                                            <!--</td>-->
+                                                            <!--<td style="padding-left: 10px">-->
+                                                                <!--<button type="button"  class="button" onclick="submit_export_dt_co()">Export Customer</button>-->
+                                                            <!--</td>-->
+
+                                                        <!--</tr>-->
+                                                    <!--</t>-->
+
+                                                    <!--<t t-if="not quick">-->
+                                                        <!--<tr >-->
+                                                            <!--<td align="center"><strong>Last Import Update</strong></td>-->
+                                                            <!--<td>-->
+                                                                <!--<br></br>-->
+                                                                <!--<br></br>-->
+                                                            <!--</td>-->
+                                                            <!--<td align="center" style="padding-left: 10px">-->
+                                                                <!--<input type="text" name="last_dt_co" class="datepicker"   placeholder="dd/mm/yyyy" id="last_dt_co"/>-->
+                                                                <!--<a href="javascript:NewCal('last_dt_co','ddmmmyyyy',true,24)">-->
+                                                                    <!--<img src="/odoo_sylius_connector/static/src/img/cal.png" width="16" height="16" border="0" alt="Pick a date"/>-->
+                                                                <!--</a>-->
+                                                            <!--</td>-->
+                                                            <!--<td>-->
+                                                                <!--<br></br>-->
+                                                                <!--<br></br>-->
+                                                            <!--</td>-->
+                                                            <!--<td style="padding-left: 10px">-->
+                                                                <!--<button type="button"  class="button" onclick="submit_quickbook_data()">Import Customer</button>-->
+                                                            <!--</td>-->
+
+                                                        <!--</tr>-->
+                                                        <tr >
+                                                            <td align="center"><strong>Last Import Date</strong></td>
+                                                            <td>
+                                                                <br></br>
+                                                                <br></br>
+                                                            </td>
+                                                            <td align="center" style="padding-left: 10px">
+                                                                <input type="text" name="export_dt_co" class="datepicker"   placeholder="dd/mm/yyyy" id="export_dt_co"/>
+                                                                <a href="javascript:NewCal('export_dt_co','ddmmmyyyy',true,24)">
+                                                                    <img src="/odoo_sylius_connector/static/src/img/cal.png" width="16" height="16" border="0" alt="Pick a date"/>
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                <br></br>
+                                                                <br></br>
+                                                            </td>
+                                                            <td style="padding-left: 10px">
+                                                                <button type="button"  class="button" style="width:100px;" onclick="submit_import_products()">Import Products</button>
+                                                            </td>
+
+                                                            <td style="padding-left: 10px">
+                                                                <button type="button"  class="button" style="width:100px;" onclick="import_product_variants()">Import Variants</button>
+                                                            </td>
+
+                                                        </tr>
+                                                    <!--</t>-->
+
+
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+<!--                                <div class="panel panel-default" style="margin-left: 90px;margin-right: 90px;height: auto;">-->
+<!--                                    <h4 class="panel-title">-->
+<!--                                        <h3 style="background:#aaaaaa;margin-left: 290px;margin-right: 5px;margin-top: 5px; width:547px;height:30px;" class="wpb_accordion_header ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-accordion-header-active ui-state-active ui-corner-top" plan="{&quot;family&quot;:false,&quot;planId&quot;:&quot;24055I&quot;}" role="tab" id="ui-accordion-1-header-0" aria-controls="ui-accordion-1-panel-0" aria-selected="true" tabindex="0">-->
+<!--                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" style="color: #FFFFFF;padding-left: 10px;" id="sus">Export-->
+<!--                                            </a>-->
+<!--                                        </h3>-->
+<!--                                    </h4>-->
+<!--                                    <div id="collapse2" class="panel-collapse collapse in">-->
+<!--                                        <div class="panel-body">-->
+<!--                                            <div class="wpb_content_element pricing-table" style="margin-left:320px;">-->
+
+<!--                                                <table class="separator" id="sale_order_info">-->
+<!--                                                    &lt;!&ndash;<t t-if="quick" t-foreach="quick or []" t-as="cust">&ndash;&gt;-->
+<!--                                                        &lt;!&ndash;<tr >&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td align="center"><strong>Last Import Update</strong></td>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<br></br>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<br></br>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;</td>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td align="center" style="padding-left: 10px">&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<input type="text" name="last_dt_co" class="datepicker" t-att-value="cust.lastupdate_cust"  placeholder="dd/mm/yyyy" id="last_dt_co"/>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<a href="javascript:NewCal('last_dt_co','ddmmmyyyy',true,24)">&ndash;&gt;-->
+<!--                                                                    &lt;!&ndash;<img src="/odoo_sylius_connector/static/src/img/cal.png" width="16" height="16" border="0" alt="Pick a date"/>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;</a>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;</td>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<br></br>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<br></br>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;</td>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td style="padding-left: 10px">&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<button type="button"  class="button" onclick="submit_quickbook_data()">Import Customer</button>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;</td>&ndash;&gt;-->
+
+<!--                                                        &lt;!&ndash;</tr>&ndash;&gt;-->
+<!--                                                        &lt;!&ndash;<tr >&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td align="center"><strong>Last Export Update</strong></td>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<br></br>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<br></br>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;</td>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td align="center" style="padding-left: 10px">&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<input type="text" name="export_dt_co" class="datepicker" t-att-value="cust.exportdate_cust or ''"  placeholder="dd/mm/yyyy" id="export_dt_co"/>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<a href="javascript:NewCal('export_dt_co','ddmmmyyyy',true,24)">&ndash;&gt;-->
+<!--                                                                    &lt;!&ndash;<img src="/odoo_sylius_connector/static/src/img/cal.png" width="16" height="16" border="0" alt="Pick a date"/>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;</a>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;</td>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<br></br>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<br></br>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;</td>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td style="padding-left: 10px">&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<button type="button"  class="button" onclick="submit_export_dt_co()">Export Customer</button>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;</td>&ndash;&gt;-->
+
+<!--                                                        &lt;!&ndash;</tr>&ndash;&gt;-->
+<!--                                                    &lt;!&ndash;</t>&ndash;&gt;-->
+
+<!--                                                    &lt;!&ndash;<t t-if="not quick">&ndash;&gt;-->
+<!--                                                        &lt;!&ndash;<tr >&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td align="center"><strong>Last Import Update</strong></td>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<br></br>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<br></br>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;</td>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td align="center" style="padding-left: 10px">&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<input type="text" name="last_dt_co" class="datepicker"   placeholder="dd/mm/yyyy" id="last_dt_co"/>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<a href="javascript:NewCal('last_dt_co','ddmmmyyyy',true,24)">&ndash;&gt;-->
+<!--                                                                    &lt;!&ndash;<img src="/odoo_sylius_connector/static/src/img/cal.png" width="16" height="16" border="0" alt="Pick a date"/>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;</a>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;</td>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<br></br>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<br></br>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;</td>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td style="padding-left: 10px">&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<button type="button"  class="button" onclick="submit_quickbook_data()">Import Customer</button>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;</td>&ndash;&gt;-->
+
+<!--                                                        &lt;!&ndash;</tr>&ndash;&gt;-->
+<!--                                                        <tr >-->
+<!--                                                            <td align="center"><strong>Last Export Date</strong></td>-->
+<!--                                                            <td>-->
+<!--                                                                <br></br>-->
+<!--                                                                <br></br>-->
+<!--                                                            </td>-->
+<!--                                                            <td align="center" style="padding-left: 10px">-->
+<!--                                                                <input type="text" name="export_dt_new" class="datepicker"   placeholder="dd/mm/yyyy" id="export_dt_new"/>-->
+<!--                                                                <a href="javascript:NewCal('export_dt_new','ddmmmyyyy',true,24)">-->
+<!--                                                                    <img src="/odoo_sylius_connector/static/src/img/cal.png" width="16" height="16" border="0" alt="Pick a date"/>-->
+<!--                                                                </a>-->
+<!--                                                            </td>-->
+<!--                                                            <td>-->
+<!--                                                                <br></br>-->
+<!--                                                                <br></br>-->
+<!--                                                            </td>-->
+<!--                                                            <td style="padding-left: 10px">-->
+<!--                                                                <button type="button"  class="button" style="width:100px;" onclick="submit_export_products()">Export Products</button>-->
+<!--                                                            </td>-->
+
+<!--                                                        </tr>-->
+<!--                                                    &lt;!&ndash;</t>&ndash;&gt;-->
+
+
+<!--                                                </table>-->
+
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                                <div class="panel panel-default" style="margin-left: 90px;margin-right: 90px;height: auto;">
+                                    <h4 class="panel-title">
+                                        <h3 style="background:#aaaaaa;margin-left: 290px;margin-right: 5px;margin-top: 5px; width:547px;height:30px;" class="wpb_accordion_header ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-accordion-header-active ui-state-active ui-corner-top" plan="{&quot;family&quot;:false,&quot;planId&quot;:&quot;24055I&quot;}" role="tab" id="ui-accordion-1-header-0" aria-controls="ui-accordion-1-panel-0" aria-selected="true" tabindex="0">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3" style="color: #FFFFFF;padding-left: 10px;" id="sus">Customers
+                                            </a>
+                                        </h3>
+                                    </h4>
+                                    <div id="collapse3" class="panel-collapse collapse in">
+                                        <div class="panel-body">
+                                            <div class="wpb_content_element pricing-table" style="margin-left:320px;">
+
+                                                <table class="separator" id="sale_order_info">
+                                                        <tr >
+<!--                                                            <td align="center"><strong>Last Export Date</strong></td>-->
+<!--                                                            <td>-->
+<!--                                                                <br></br>-->
+<!--                                                                <br></br>-->
+<!--                                                            </td>-->
+<!--                                                            <td align="center" style="padding-left: 10px">-->
+<!--                                                                <input type="text" name="cust_dt_new" class="datepicker"   placeholder="dd/mm/yyyy" id="cust_dt_new"/>-->
+<!--                                                                <a href="javascript:NewCal('export_dt_new','ddmmmyyyy',true,24)">-->
+<!--                                                                    <img src="/odoo_sylius_connector/static/src/img/cal.png" width="16" height="16" border="0" alt="Pick a date"/>-->
+<!--                                                                </a>-->
+<!--                                                            </td>-->
+                                                            <td>
+                                                                <br></br>
+                                                                <br></br>
+                                                            </td>
+                                                            <td style="padding-left: 10px">
+                                                                <button type="button"  class="button" style="width:100px;" onclick="submit_import_customers()">Import Customers</button>
+                                                            </td>
+
+                                                        </tr>
+                                                    <!--</t>-->
+
+
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default" style="margin-left: 90px;margin-right: 90px;height: auto;">
+                                    <h4 class="panel-title">
+                                        <h3 style="background:#aaaaaa;margin-left: 290px;margin-right: 5px;margin-top: 5px; width:547px;height:30px;" class="wpb_accordion_header ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-accordion-header-active ui-state-active ui-corner-top" plan="{&quot;family&quot;:false,&quot;planId&quot;:&quot;24055I&quot;}" role="tab" id="ui-accordion-1-header-0" aria-controls="ui-accordion-1-panel-0" aria-selected="true" tabindex="0">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse4" style="color: #FFFFFF;padding-left: 10px;" id="sus">Orders
+                                            </a>
+                                        </h3>
+                                    </h4>
+                                    <div id="collapse4" class="panel-collapse collapse in">
+                                        <div class="panel-body">
+                                            <div class="wpb_content_element pricing-table" style="margin-left:320px;">
+
+                                                <table class="separator" id="sale_order_info">
+                                                        <tr >
+<!--                                                            <td align="center"><strong>Last Export Date</strong></td>-->
+<!--                                                            <td>-->
+<!--                                                                <br></br>-->
+<!--                                                                <br></br>-->
+<!--                                                            </td>-->
+<!--                                                            <td align="center" style="padding-left: 10px">-->
+<!--                                                                <input type="text" name="cust_dt_new" class="datepicker"   placeholder="dd/mm/yyyy" id="cust_dt_new"/>-->
+<!--                                                                <a href="javascript:NewCal('export_dt_new','ddmmmyyyy',true,24)">-->
+<!--                                                                    <img src="/odoo_sylius_connector/static/src/img/cal.png" width="16" height="16" border="0" alt="Pick a date"/>-->
+<!--                                                                </a>-->
+<!--                                                            </td>-->
+                                                            <td>
+                                                                <br></br>
+                                                                <br></br>
+                                                            </td>
+                                                            <td style="padding-left: 10px">
+                                                                <button type="button"  class="button" style="width:100px;" onclick="submit_import_orders()">Import Orders</button>
+                                                            </td>
+
+                                                        </tr>
+                                                    <!--</t>-->
+
+
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default" style="margin-left: 90px;margin-right: 90px;height: auto;">
+                                    <h4 class="panel-title">
+                                        <h3 style="background:#aaaaaa;margin-left: 290px;margin-right: 5px;margin-top: 5px; width:547px;height:30px;" class="wpb_accordion_header ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-accordion-header-active ui-state-active ui-corner-top" plan="{&quot;family&quot;:false,&quot;planId&quot;:&quot;24055I&quot;}" role="tab" id="ui-accordion-1-header-0" aria-controls="ui-accordion-1-panel-0" aria-selected="true" tabindex="0">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse9" style="color: #FFFFFF;padding-left: 10px;" id="sus">Countries
+                                            </a>
+                                        </h3>
+                                    </h4>
+                                    <div id="collapse9" class="panel-collapse collapse in">
+                                        <div class="panel-body">
+                                            <div class="wpb_content_element pricing-table" style="margin-left:320px;">
+
+                                                <table class="separator" id="sale_order_info">
+                                                        <tr >
+<!--                                                            <td align="center"><strong>Last Export Date</strong></td>-->
+<!--                                                            <td>-->
+<!--                                                                <br></br>-->
+<!--                                                                <br></br>-->
+<!--                                                            </td>-->
+<!--                                                            <td align="center" style="padding-left: 10px">-->
+<!--                                                                <input type="text" name="cust_dt_new" class="datepicker"   placeholder="dd/mm/yyyy" id="cust_dt_new"/>-->
+<!--                                                                <a href="javascript:NewCal('export_dt_new','ddmmmyyyy',true,24)">-->
+<!--                                                                    <img src="/odoo_sylius_connector/static/src/img/cal.png" width="16" height="16" border="0" alt="Pick a date"/>-->
+<!--                                                                </a>-->
+<!--                                                            </td>-->
+                                                            <td>
+                                                                <br></br>
+                                                                <br></br>
+                                                            </td>
+                                                            <td style="padding-left: 10px">
+                                                                <button type="button"  class="button" style="width:100px;" onclick="import_country_codes()">Import Countries</button>
+                                                            </td>
+
+                                                        </tr>
+                                                    <!--</t>-->
+
+
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+<!--                                <div class="panel panel-default" style="margin-left: 90px;margin-right: 90px;height: 50px;">-->
+<!--                                    <h4 class="panel-title">-->
+<!--                                        <h3 style="background:#aaaaaa;margin-left: 290px;margin-right: 5px;margin-top: 5px; width:547px;height:30px;" class="wpb_accordion_header ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-accordion-header-active ui-state-active ui-corner-top" plan="{&quot;family&quot;:false,&quot;planId&quot;:&quot;24055I&quot;}" role="tab" id="ui-accordion-1-header-0" aria-controls="ui-accordion-1-panel-0" aria-selected="true" tabindex="0">-->
+<!--                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse6" style="color: #FFFFFF;padding-left: 10px;" id="sus">Update-->
+<!--                                            </a>-->
+<!--                                        </h3>-->
+<!--                                    </h4>-->
+<!--                                    <div id="collapse6" class="panel-collapse collapse">-->
+<!--                                        <div class="panel-body">-->
+<!--                                            <div class="wpb_content_element pricing-table" style="margin-left:420px;">-->
+<!--                                                <table class="separator" id="sale_order_info">-->
+<!--                                                    &lt;!&ndash;<t t-if="quick" t-foreach="quick or []" t-as="sup">&ndash;&gt;-->
+<!--                                                        &lt;!&ndash;<tr >&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td align="center"><strong>Last Import Update</strong></td>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<br></br>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<br></br>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;</td>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td align="center" style="padding-left: 10px">&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<input type="text" name="last_dt_sup" class="datepicker" t-att-value="sup.lastupdate_sup"  placeholder="dd/mm/yyyy" id="last_dt_sup"/>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<a href="javascript:NewCal('last_dt_sup','ddmmmyyyy',true,24)">&ndash;&gt;-->
+<!--                                                                    &lt;!&ndash;<img src="/odoo_sylius_connector/static/src/img/cal.png" width="16" height="16" border="0" alt="Pick a date"/>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;</a>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;</td>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<br></br>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<br></br>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;</td>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td style="padding-left: 10px">&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<button type="button"  class="button" onclick="submit_quickbook_vendor()">Import Vendors</button>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;</td>&ndash;&gt;-->
+
+<!--                                                        &lt;!&ndash;</tr>&ndash;&gt;-->
+
+<!--                                                        &lt;!&ndash;<tr >&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td align="center"><strong>Last Export Update</strong></td>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<br></br>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<br></br>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;</td>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td align="center" style="padding-left: 10px">&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<input type="text" name="export_dt_sup" class="datepicker" t-att-value="sup.exportdate_sup"  placeholder="dd/mm/yyyy" id="export_dt_sup"/>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<a href="javascript:NewCal('export_dt_sup','ddmmmyyyy',true,24)">&ndash;&gt;-->
+<!--                                                                    &lt;!&ndash;<img src="/odoo_sylius_connector/static/src/img/cal.png" width="16" height="16" border="0" alt="Pick a date"/>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;</a>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;</td>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<br></br>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<br></br>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;</td>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;<td style="padding-left: 10px">&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<button type="button"  class="button" onclick="export_quickbook_vendor()">Export Vendors</button>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;</td>&ndash;&gt;-->
+
+<!--                                                        &lt;!&ndash;</tr>&ndash;&gt;-->
+<!--                                                    &lt;!&ndash;</t>&ndash;&gt;-->
+<!--                                                    &lt;!&ndash;<t t-if="not quick">&ndash;&gt;-->
+<!--                                                        <tr >-->
+<!--                                                            <td align="center"><strong>Products</strong></td>-->
+<!--                                                            <td>-->
+<!--                                                                <br></br>-->
+<!--                                                                <br></br>-->
+<!--                                                            </td>-->
+<!--                                                            &lt;!&ndash;<td align="center" style="padding-left: 10px">&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<input type="text" name="last_dt_sup" class="datepicker"   placeholder="dd/mm/yyyy" id="last_dt_sup"/>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;<a href="javascript:NewCal('last_dt_sup','ddmmmyyyy',true,24)">&ndash;&gt;-->
+<!--                                                                    &lt;!&ndash;<img src="/odoo_sylius_connector/static/src/img/cal.png" width="16" height="16" border="0" alt="Pick a date"/>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;</a>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;</td>&ndash;&gt;-->
+<!--                                                            <td>-->
+<!--                                                                <br></br>-->
+<!--                                                                <br></br>-->
+<!--                                                            </td>-->
+<!--                                                            <td style="padding-left: 10px">-->
+<!--                                                                <button type="button"  class="button" style="width:100px;" onclick="submit_update_products()">Update</button>-->
+<!--                                                            </td>-->
+
+<!--                                                        </tr>-->
+
+<!--                                                    &lt;!&ndash;</t>&ndash;&gt;-->
+
+
+<!--                                                </table>-->
+
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+
+
+
+
+                            </div>
+
+                        </div>
+                    </form>
+
+                </div>
+            </t>
+        </template>
+
+
+
+    </data>
+</odoo>

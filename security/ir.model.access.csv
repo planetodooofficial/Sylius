@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sylius_taxons,sylius.taxons,model_sylius_taxons,base.group_user,1,1,1,1
+access_sylius_report,sylius.report,model_sylius_report,base.group_user,1,1,1,1
+access_sylius_credential,sylius_credential,model_sylius_credential,base.group_user,1,1,1,1
+access_sale_adjust_line,sale.adjust.lines,model_sale_adjustment_lines,base.group_user,1,1,1,1

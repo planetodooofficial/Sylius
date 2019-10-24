@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_order_form_sylius" model="ir.ui.view">
+        <field name="name">view.sale.order.form.sylius</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='order_lines']" position="after">
+                <page name="adjustment_lines" string="Adjustment Lines">
+                    <field name="sale_adjustment_lines_ids">
+                        <tree editable="bottom">
+                            <field name="sylius_adjustment_id"/>
+                            <field name="adjustment_type"/>
+                            <field name="adjustment_label"/>
+                            <field name="adjustment_amount"/>
+                        </tree>
+                    </field>
+                    <group class="oe_subtotal_footer oe_right" colspan="2" name="adjustment_total">
+                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                            <label for="adjustment_amount_total"/>
+                        </div>
+                        <field name="adjustment_amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    </group>
+                </page>
+            </xpath>
+                  <xpath expr="//page[@name='adjustment_lines']" position="after">
+                <page name="sylius_order" string="Sylius">
+                    <group>
+                        <group>
+                            <field name="sylius_order_id"/>
+                            <field name="sylius_shipment_id"/>
+                        </group>
+                        <group>
+
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='amount_tax']" position="after">
+                <field name="adjustment_amount_total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+            </xpath>
+
+
+        </field>
+    </record>
+</odoo>

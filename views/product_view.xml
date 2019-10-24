@@ -1,0 +1,175 @@
+<odoo>
+    <data>
+        <record id="view_product_template_form" model="ir.ui.view">
+            <field name="name">product.template.view.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//page[@name='inventory']" position="after">
+                    <page name="sylius" string="Sylius">
+                        <group>
+
+
+                            <group string="Variants">
+                                <field name="product_status" required="1"/>
+                                <field name="current_stock"/>
+                                <field name="tracked"/>
+                                <field name="bom" required="1"/>
+                                <field name="dg_batt" required="1"/>
+                                <field name="date_launched"/>
+                                <field name="hs_code"/>
+                            </group>
+                            <group string="Variants">
+
+                                <field name="ce_code"/>
+                                <field name="ean"/>
+                                <field name="country_of_origin"/>
+                                <field name="cost" required="1"/>
+                                <field name="map_eur" required="1"/>
+                                <field name="map_gbp" required="1"/>
+                                <field name="stock_remark"/>
+                            </group>
+                            <group string="Product">
+                                <field name="sylius_id"/>
+                                <field name="sylius_code" required="1"/>
+                                <field name="sylius_slug"/>
+                            </group>
+                            <group string="Product">
+                                <field name="website"/>
+                                <field name="updated_at" readonly="1"/>
+                                <field name="last_sylius_update"/>
+                            </group>
+
+
+
+
+                            <!--<group string="Variants">-->
+                            <!--<field name="ean"  />-->
+
+                            <!--<field name="stock_remark"  />-->
+                            <!--<field name="bom"  />-->
+                            <!--<field name="country_of_origin"  />-->
+                            <!--<field name="hs_code"  />-->
+                            <!--&lt;!&ndash;</group>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<group string="Variants">&ndash;&gt;-->
+                            <!--<field name="ce_code"  />-->
+                            <!--<field name="dg_batt"  />-->
+                            <!--<field name="map"  widget='monetary' options="{'currency_field': 'company_currency'}" />-->
+                            <!--<field name="map_gbp"  widget='monetary' options="{'currency_field': 'company_currency'}" />-->
+                            <!--</group>-->
+
+                            <!--<group string="Product">-->
+                            <!--<field name="sylius_id"  force_save="1"/>-->
+                            <!--<field name="sylius_code" required="1" force_save="1" />-->
+
+                            <!--<field name="website"  />-->
+                            <!--<field name="main_taxon_id"  />-->
+                            <!--<field name="updated_at"  />-->
+                            <!--<field name="last_sylius_update"  />-->
+                            <!--</group>-->
+                            <!--<group string="Translation">-->
+                            <!--<field name="translation_name"  />-->
+
+                            <!--<field name="description"  />-->
+                            <!--<field name="failure_reason"  />-->
+                            <!--<field name="sylius_slug" required="1" force_save="1" />-->
+
+                            <!--</group>-->
+
+
+
+                        </group>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_product_product_form" model="ir.ui.view">
+            <field name="name">product.product.view.form</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='inventory']" position="after">
+                    <page name="sylius" string="Sylius">
+                        <group>
+                            <group string="Variants">
+                                <field name="product_status" required="1"/>
+                                <field name="current_stock"/>
+                                <field name="tracked"/>
+                                <field name="bom" required="1"/>
+                                <field name="dg_batt" required="1"/>
+                                <field name="date_launched"/>
+                                <field name="hs_code"/>
+                            </group>
+                            <group string="Variants">
+
+                                <field name="ce_code"/>
+                                <field name="ean"/>
+                                <field name="country_of_origin"/>
+                                <field name="cost" required="1"/>
+                                <field name="map_eur" required="1"/>
+                                <field name="map_gbp" required="1"/>
+                                <field name="stock_remark"/>
+                            </group>
+                            <group string="Product">
+                                <field name="sylius_id"/>
+                                <field name="sylius_code" required="1"/>
+                                <field name="sylius_slug" required="1"/>
+                                <field name="sylius_variant_id"/>
+                                <field name="sylius_variant_code"/>
+                            </group>
+                            <group string="Product">
+                                <field name="website"/>
+                                <field name="updated_at" readonly="1"/>
+                                <field name="last_sylius_update"/>
+                            </group>
+
+
+                        </group>
+                        <!--<group>-->
+                        <!--<group string="Variants">-->
+                        <!--<field name="ean"  />-->
+
+                        <!--<field name="stock_remark"  />-->
+                        <!--<field name="bom"  />-->
+                        <!--<field name="country_of_origin"  />-->
+                        <!--<field name="hs_code"  />-->
+                        <!--</group>-->
+                        <!--<group string="Variants">-->
+                        <!--<field name="ce_code"  />-->
+                        <!--<field name="dg_batt"  />-->
+                        <!--<field name="map"  widget='monetary' options="{'currency_field': 'company_currency'}" />-->
+                        <!--<field name="map_gbp"  widget='monetary' options="{'currency_field': 'company_currency'}" />-->
+                        <!--</group>-->
+
+                        <!--<group string="Product">-->
+                        <!--<field name="sylius_id"  force_save="1"/>-->
+                        <!--<field name="sylius_code" required="1" force_save="1" />-->
+
+                        <!--<field name="website"  />-->
+                        <!--<field name="main_taxon_id"  />-->
+                        <!--<field name="updated_at"  />-->
+                        <!--<field name="last_sylius_update"  />-->
+                        <!--</group>-->
+                        <!--<group string="Translation">-->
+                        <!--<field name="translation_name"  />-->
+
+                        <!--<field name="description"  />-->
+                        <!--<field name="failure_reason"  />-->
+                        <!--<field name="sylius_slug" required="1" force_save="1" />-->
+
+                        <!--</group>-->
+
+
+
+                        <!--</group>-->
+                    </page>
+
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

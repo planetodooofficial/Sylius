@@ -1,0 +1,28 @@
+{
+    'name': "Odoo-Sylius Connector",
+    'version': '12.0.0',
+    'summary': """Import & export data between Odoo & Sylius""",
+    # 'description': """This module allows to orders of POS.""",
+    'author': "Planet-Odoo",
+    'company': "Planet Odoo",
+    'website': "http://www.planet-odoo.com",
+    'category': '',
+    'depends': ['base','web','shipping_integration_ept','sale_management','stock','delivery','hr','purchase','account','website'],
+    'data': [
+        # 'static/src/xml/test.xml',
+        # 'static/src/xml/submit.xml',
+        'security/ir.model.access.csv',
+        'views/taxon.xml',
+        'views/res_partner.xml',
+        'views/product_view.xml',
+        'views/sale.xml',
+        'views/sylius_report.xml',
+        'views/sylius_menu.xml',
+        'wizard/sylius_operations.xml'
+    ],
+    'qweb': [],
+    'images': [],
+    'license': 'AGPL-3',
+    'installable': True,
+    'auto_install': False,
+}
